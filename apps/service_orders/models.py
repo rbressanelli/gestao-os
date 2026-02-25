@@ -28,10 +28,5 @@ class ServiceOrder(models.Model):
     
     
     def __str__(self):
-        return f'{
-            "OS": {self.os_number},
-            "Prioridade": {self.priority},
-            "Status": {self.status},
-            "Descrição": {self.problem_description}
-            }'
+        return f'{{"OS": {self.os_number}, "Prioridade": {self.priority},"Status": {self.status},"Descrição": {self.problem_description}}}'
 
