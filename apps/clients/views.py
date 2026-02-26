@@ -30,7 +30,7 @@ class ClientView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)         
         serializer.save()               
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
     def delete(self, _, client_id) -> Response:        
