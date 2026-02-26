@@ -7,6 +7,10 @@ class Comment(models.Model):
     name = models.CharField(max_length=32, null=False)
     description = models.TextField(max_length=512)
     
+    service_order = models.ForeignKey(
+        "service_orders.ServiceOrder", on_delete=models.CASCADE, related_name="service_orders"
+    )
+    
     
     def __str__(self):
         return self.name

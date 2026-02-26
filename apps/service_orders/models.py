@@ -26,6 +26,14 @@ class ServiceOrder(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     closed_date = models.DateTimeField(null=False)
     
+    client = models.ForeignKey(
+        "clients.Client", on_delete=models.CASCADE, related_name="clients"
+    )
+    
+    technician = models.ForeignKey(
+        "technicians.Technician", on_delete=models.CASCADE, related_name="technicians"
+    )
+    
     
     def __str__(self):
         return f'{{"OS": {self.os_number}, "Prioridade": {self.priority},"Status": {self.status},"Descrição": {self.problem_description}}}'
