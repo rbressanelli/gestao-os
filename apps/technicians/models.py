@@ -7,7 +7,7 @@ class Technician(models.Model):
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
     specialty = models.CharField(max_length=50, null=False)
-    email = models.EmailField(max_length=256, null=False)
+    email = models.EmailField(max_length=256, null=False, unique=True)
     active = models.BooleanField(default=False)
     hiring_date = models.DateTimeField(null=False)
     

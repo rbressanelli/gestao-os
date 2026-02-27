@@ -4,7 +4,7 @@ from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Technician
-from .serializers import TechnicianSerializer
+from .serializers import TechnicianSerializer, TecnicianActiveSerializer
 
 
 class TechnicianView(APIView):
@@ -30,6 +30,16 @@ class TechnicianView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    
+    
+    def put(self, _, technician_id) -> Response:
+        technician = Technician.objects.get(id=technician_id)
+        technician.active = not technician.active
+        serializer = TechnicianSerializer(technician, data=technician.__dict__, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()        
+        return Response({"Technician is active": technician.active}, status=status.HTTP_200_OK)
         
     
     def delete(self, _, technician_id) -> Response:
