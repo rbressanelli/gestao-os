@@ -1,11 +1,15 @@
 from rest_framework import serializers
 from .models import Client
+from ..service_orders.serializers import ServiceOrderSerializer
 
 
 class ClientSerializer(serializers.ModelSerializer):
+    
+    service_order = ServiceOrderSerializer(required=False)
+    
     class Meta:
         model = Client
-        fields = ["id", "first_name", "last_name", "email", "telephone", "address", "created_at"]
+        fields = ["id", "first_name", "last_name", "email", "telephone", "address", "created_at", "service_order"]
         
         
     def create(self, validated_data):

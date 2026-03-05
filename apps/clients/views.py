@@ -17,8 +17,7 @@ class ClientView(APIView):
     
     def post(self, request) -> Response:        
         serializer = ClientSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+        serializer.is_valid(raise_exception=True)   
         client = serializer.save()     
         serializer = ClientSerializer(client)        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -27,8 +26,7 @@ class ClientView(APIView):
     def patch(self, request, client_id) -> Response:        
         client = Client.objects.get(id=client_id)
         serializer = ClientSerializer(client, data=request.data, partial=True)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)         
+        serializer.is_valid(raise_exception=True)         
         serializer.save()               
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
